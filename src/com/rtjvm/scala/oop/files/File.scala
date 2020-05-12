@@ -10,6 +10,10 @@ extends DirEntry(parentPath,  name) {
 
   def asFile: File = this
 
+  def isDirectory: Boolean = false
+
+  def isFile: Boolean = true
+
   def getType: String = "File"
 
 }
