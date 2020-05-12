@@ -2,7 +2,7 @@ package com.rtjvm.scala.oop.commands
 import com.rtjvm.scala.oop.files.DirEntry
 import com.rtjvm.scala.oop.filesystem.State
 
-class ls extends Command {
+class Ls extends Command {
 
   override def apply(state: State): State = {
     val contents = state.wd.contents
