@@ -23,9 +23,18 @@ class Rm(name: String) extends Command {
 
   def doRm(state: State, path: String): State = {
 
-    def rmHelper(currentDirectory: Directory, str: String, path: List[String]): Directory = {
+    def rmHelper(currentDirectory: Directory, path: List[String]): Directory = {
       if (path.isEmpty) currentDirectory
       else if (path.tail.isEmpty) currentDirectory.removeEntry(path.head)
+      else {
+        val nextDirectory = currentDirectory.findEntry(path.head)
+        if (!nextDirectory.isDirectory) currentDirectory
+        else {
+          val newNextDirectory = rmHelper(nextDirectory.asDirectory, path.tail)
+          if (newNextDirectory == nextDirectory) currentDirectory
+          else currentDirectory.replaceEntry(path.head, newNextDirectory)
+        }
+      }
     }
 
     // Find the entry to remove
