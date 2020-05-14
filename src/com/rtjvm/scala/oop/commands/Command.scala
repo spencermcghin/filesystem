@@ -2,7 +2,7 @@ package com.rtjvm.scala.oop.commands
 
 import com.rtjvm.scala.oop.filesystem.State
 
-trait Command {
+trait Command extends (State => State) {
 
   def apply(state: State): State
 
@@ -40,7 +40,7 @@ object Command {
     } else if (PWD.equals(tokens(0))) {
       new Pwd
     } else if (TOUCH.equals(tokens(0))) {
-      if (tokens.length < 2) incompleteCommand(TOUCH)
+      if (tokens.length < 2) incompleteCommand(MKDIR)
       else new Touch(tokens(1))
     } else if (CD.equals(tokens(0))) {
       if (tokens.length < 2) incompleteCommand(CD)
